@@ -1,7 +1,9 @@
 import asyncio
+import os
 import sys
 from typing import Any, Dict, List, Tuple
 
+from dotenv import load_dotenv
 from camel.models import ModelFactory
 from camel.toolkits import MCPToolkit
 from camel.types import ModelPlatformType, ModelType
@@ -16,6 +18,8 @@ async def main() -> None:
     """
     Main function to run the MCP research task.
     """
+    # Load environment variables from .env file
+    load_dotenv()
     # Initialize MCP toolkit and connect
     mcp_toolkit = MCPToolkit(config_path="examples/mcp_servers_config.json")
 
@@ -28,9 +32,21 @@ async def main() -> None:
         )
 
         # Setup model
+        # Ensure the required environment variables are set
+        pixtral_model_id = os.getenv("PIXTRAL_MODEL_ID")
+        pixtral_api_key = os.getenv("PIXTRAL_API_KEY") # Optional, remove if not needed
+        pixtral_url = os.getenv("PIXTRAL_URL")
+
+        if not pixtral_model_id or not pixtral_url:
+            raise ValueError("Please set the PIXTRAL_MODEL_ID and PIXTRAL_URL environment variables.")
+            # If API key is mandatory, add: or not pixtral_api_key
+
         model = ModelFactory.create(
-            model_platform=ModelPlatformType.GEMINI,
-            model_type="gemini-1.5-flash-latest",
+            model_platform=ModelPlatformType.OPENAI_COMPATIBLE_MODEL,
+            model_type=pixtral_model_id,
+            model_config_dict={},
+            api_key=pixtral_api_key,
+            url=pixtral_url
         )
 
         # Create and run society
