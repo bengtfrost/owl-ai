@@ -50,37 +50,37 @@ def construct_society(question: str) -> RolePlaying:
     models = {
         "user": ModelFactory.create(
             model_platform=ModelPlatformType.GEMINI,
-            model_type=ModelType.GEMINI_1_5_FLASH,
+            model_type=ModelType.GEMINI_2_0_FLASH,
             model_config_dict={"temperature": 0},
         ),
         "assistant": ModelFactory.create(
             model_platform=ModelPlatformType.GEMINI,
-            model_type=ModelType.GEMINI_1_5_FLASH,
+            model_type=ModelType.GEMINI_2_0_FLASH,
             model_config_dict={"temperature": 0},
         ),
         "browsing": ModelFactory.create(
             model_platform=ModelPlatformType.GEMINI,
-            model_type=ModelType.GEMINI_1_5_FLASH,
+            model_type=ModelType.GEMINI_2_0_FLASH,
             model_config_dict={"temperature": 0},
         ),
         "planning": ModelFactory.create(
             model_platform=ModelPlatformType.GEMINI,
-            model_type=ModelType.GEMINI_1_5_FLASH,
+            model_type=ModelType.GEMINI_2_0_FLASH,
             model_config_dict={"temperature": 0},
         ),
         "video": ModelFactory.create(
             model_platform=ModelPlatformType.GEMINI,
-            model_type=ModelType.GEMINI_1_5_FLASH,
+            model_type=ModelType.GEMINI_2_0_FLASH,
             model_config_dict={"temperature": 0},
         ),
         "image": ModelFactory.create(
             model_platform=ModelPlatformType.GEMINI,
-            model_type=ModelType.GEMINI_1_5_FLASH,
+            model_type=ModelType.GEMINI_2_0_FLASH,
             model_config_dict={"temperature": 0},
         ),
         "document": ModelFactory.create(
             model_platform=ModelPlatformType.GEMINI,
-            model_type=ModelType.GEMINI_1_5_FLASH,
+            model_type=ModelType.GEMINI_2_0_FLASH,
             model_config_dict={"temperature": 0},
         ),
     }
