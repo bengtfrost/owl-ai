@@ -1,4 +1,3 @@
-````markdown
 # Workflow for Modifying and Using `camel-ai` in `owl`
 
 This document outlines the steps to modify the `camel-ai` package, install it in editable mode, and ensure that the `owl` project uses the modified version of `camel-ai`. This workflow assumes that both `camel-ai` and `owl` are separate repositories with their own virtual environments.
@@ -118,6 +117,3 @@ The `_camel_ai.pth` file in the `owl` virtual environment ensures that the `owl`
 3. Verify and test the changes to ensure that the `owl` project uses the modified `camel-ai` package.
 
 This workflow ensures a smooth development process while leveraging `uv` commands and editable installations.
-````
-
-This `README_extra.md` file provides a general and reusable explanation of the workflow for modifying and using `camel-ai` in `owl`. It includes steps for forking/cloning, making changes, installing in editable mode, and verifying the changes.
