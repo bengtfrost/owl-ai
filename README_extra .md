@@ -1,5 +1,3 @@
-This file explains the general workflow for modifying the `camel-ai` package, installing it in editable mode, and ensuring that the `owl` project uses the modified `camel-ai` package.
-
 ````markdown
 # Workflow for Modifying and Using `camel-ai` in `owl`
 
