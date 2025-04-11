@@ -16,12 +16,9 @@ import pathlib
 from dotenv import load_dotenv
 from camel.models import ModelFactory
 from camel.toolkits import (
-    AudioAnalysisToolkit,
     CodeExecutionToolkit,
     ExcelToolkit,
     ImageAnalysisToolkit,
-    SearchToolkit,
-    VideoAnalysisToolkit,
     BrowserToolkit,
     FileWriteToolkit,
 )
@@ -39,7 +36,7 @@ set_log_level(level="DEBUG")
 
 
 def construct_society(question: str) -> RolePlaying:
-    r"""Construct a society of agents based on Mistral model(s).
+    r"""Construct a society of agents based on the given question.
 
     Args:
         question (str): The task or question to be addressed by the society.
@@ -51,38 +48,33 @@ def construct_society(question: str) -> RolePlaying:
     # Create models for different components
     models = {
         "user": ModelFactory.create(
-            model_platform=ModelPlatformType.MISTRAL,
-            model_type=ModelType.MISTRAL_LARGE,
+            model_platform=ModelPlatformType.TOGETHER,
+            model_type=ModelType.TOGETHER_LLAMA_4_MAVERICK,
             model_config_dict={"temperature": 0},
         ),
         "assistant": ModelFactory.create(
-            model_platform=ModelPlatformType.MISTRAL,
-            model_type=ModelType.MISTRAL_LARGE,
+            model_platform=ModelPlatformType.TOGETHER,
+            model_type=ModelType.TOGETHER_LLAMA_4_MAVERICK,
             model_config_dict={"temperature": 0},
         ),
         "browsing": ModelFactory.create(
-            model_platform=ModelPlatformType.MISTRAL,
-            model_type=ModelType.MISTRAL_LARGE,
+            model_platform=ModelPlatformType.TOGETHER,
+            model_type=ModelType.TOGETHER_LLAMA_4_MAVERICK,
             model_config_dict={"temperature": 0},
         ),
         "planning": ModelFactory.create(
-            model_platform=ModelPlatformType.MISTRAL,
-            model_type=ModelType.MISTRAL_LARGE,
-            model_config_dict={"temperature": 0},
-        ),
-        "video": ModelFactory.create(
-            model_platform=ModelPlatformType.MISTRAL,
-            model_type=ModelType.MISTRAL_PIXTRAL_12B,
+            model_platform=ModelPlatformType.TOGETHER,
+            model_type=ModelType.TOGETHER_LLAMA_4_MAVERICK,
             model_config_dict={"temperature": 0},
         ),
         "image": ModelFactory.create(
-            model_platform=ModelPlatformType.MISTRAL,
-            model_type=ModelType.MISTRAL_PIXTRAL_12B,
+            model_platform=ModelPlatformType.TOGETHER,
+            model_type=ModelType.TOGETHER_LLAMA_4_MAVERICK,
             model_config_dict={"temperature": 0},
         ),
         "document": ModelFactory.create(
-            model_platform=ModelPlatformType.MISTRAL,
-            model_type=ModelType.MISTRAL_LARGE,
+            model_platform=ModelPlatformType.TOGETHER,
+            model_type=ModelType.TOGETHER_LLAMA_4_MAVERICK,
             model_config_dict={"temperature": 0},
         ),
     }
@@ -90,17 +82,12 @@ def construct_society(question: str) -> RolePlaying:
     # Configure toolkits
     tools = [
         *BrowserToolkit(
-            headless=True,
+            headless=False,  # Set to True for headless mode (e.g., on remote servers)
             web_agent_model=models["browsing"],
             planning_agent_model=models["planning"],
         ).get_tools(),
-        *VideoAnalysisToolkit(model=models["video"]).get_tools(),
-        *AudioAnalysisToolkit().get_tools(),
         *CodeExecutionToolkit(sandbox="subprocess", verbose=True).get_tools(),
         *ImageAnalysisToolkit(model=models["image"]).get_tools(),
-        SearchToolkit().search_duckduckgo,
-        SearchToolkit().search_google,
-        SearchToolkit().search_wiki,
         *ExcelToolkit().get_tools(),
         *DocumentProcessingToolkit(model=models["document"]).get_tools(),
         *FileWriteToolkit(output_dir="./").get_tools(),
@@ -131,7 +118,7 @@ def construct_society(question: str) -> RolePlaying:
 def main():
     r"""Main function to run the OWL system with an example question."""
     # Default research question
-    default_task = "Navigate to Amazon.com and identify one product that is attractive to coders. Please provide me with the product name and price. No need to verify your answer."
+    default_task = "Open Brave search, summarize the github stars, fork counts, etc. of camel-ai's camel framework, and write the numbers into a python file using the plot package, save it locally, and run the generated python file."
 
     # Override default task if command line argument is provided
     task = sys.argv[1] if len(sys.argv) > 1 else default_task
