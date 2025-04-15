@@ -11,9 +11,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ========= Copyright 2023-2024 @ CAMEL-AI.org. All Rights Reserved. =========
+import sys
+import os
+
+# Add project root to sys.path immediately, before any other imports
+# This aims to ensure the path is set regardless of execution context
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if project_root not in sys.path:
+    # Use insert(0) to give it highest priority
+    sys.path.insert(0, project_root)
+    # Use print for early feedback as logging might not be configured yet
+    print(f"[INFO] Added project root to sys.path at script top: {project_root}")
+
+# Now proceed with other imports
+
 # Import from the correct module path
 from utils import run_society
-import os
+# Imports moved down slightly due to sys.path logic above
+from utils import run_society # Keep this import after path setup if utils is also in the project
 import gradio as gr
 import time
 import json
@@ -350,13 +365,17 @@ def run_owl(question: str, example_module: str) -> Tuple[str, str, str]:
                 "❌ Error: Unsupported module",
             )
 
-        # Dynamically import target module
-        module_path = f"owl.examples.{example_module}"  # Updated module path
+        # Keep the standard import logic, relying on the sys.path modification at the top.
+        module = None
+        module_path = f"examples.{example_module}"
         try:
-            logging.info(f"Importing module: {module_path}")
+            # Standard import attempt assuming correct execution context
+            logging.info(f"Attempting to import module: {module_path}")
             module = importlib.import_module(module_path)
+            logging.info(f"Successfully imported module: {module_path}")
         except ImportError as ie:
             logging.error(f"Unable to import module {module_path}: {str(ie)}")
+            logging.error(f"sys.path at time of error: {sys.path}")
             return (
                 f"Unable to import module: {module_path}",
                 "0",
@@ -372,7 +391,16 @@ def run_owl(question: str, example_module: str) -> Tuple[str, str, str]:
                 f"❌ Error: {str(e)}",
             )
 
-        # Check if it contains the construct_society function
+        # Check if module was successfully imported before proceeding
+        if module is None:
+             # This case should ideally be caught by the except blocks, but adding safety check
+             logging.error(f"Module object is None after import attempt for {module_path}, cannot proceed.")
+             return (
+                 f"Failed to load module: {module_path}",
+                 "0",
+                 f"❌ Error: Module {example_module} could not be loaded (module object is None)",
+             )
+
         if not hasattr(module, "construct_society"):
             logging.error(
                 f"construct_society function not found in module {module_path}"
@@ -1282,6 +1310,8 @@ def create_ui():
 
 # Main function
 def main():
+    # Removed sys.path modification from main()
+
     try:
         # Initialize logging system
         global LOG_FILE
@@ -1322,3 +1352,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
