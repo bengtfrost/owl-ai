@@ -28,7 +28,9 @@ if project_root not in sys.path:
 from utils import run_society
 
 # Imports moved down slightly due to sys.path logic above
-from utils import run_society  # Keep this import after path setup if utils is also in the project
+from utils import (
+    run_society,
+)  # Keep this import after path setup if utils is also in the project
 import gradio as gr
 import time
 import json
