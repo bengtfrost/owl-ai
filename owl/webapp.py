@@ -21,7 +21,6 @@ if project_root not in sys.path:
     sys.path.insert(0, project_root)
     # Use print for early feedback as logging might not be configured yet
     print(f"[INFO] Added project root to sys.path at script top: {project_root}")
-
 # Now proceed with other imports
 
 # Import from the correct module path
