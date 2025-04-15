@@ -13,7 +13,6 @@
 # ========= Copyright 2023-2024 @ CAMEL-AI.org. All Rights Reserved. =========
 import sys
 import os
-
 # Add project root to sys.path immediately, before any other imports
 # This aims to ensure the path is set regardless of execution context
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
