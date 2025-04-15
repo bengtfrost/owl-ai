@@ -22,16 +22,13 @@ from camel.toolkits import (
     ExcelToolkit,
     ImageAnalysisToolkit,
     SearchToolkit,
-    VideoAnalysisToolkit,  # Added
+    VideoAnalysisToolkit, # Added
     BrowserToolkit,
     FileWriteToolkit,
 )
 from camel.types import ModelPlatformType
 
-from owl.utils import (
-    run_society,
-    DocumentProcessingToolkit,
-)  # Added DocumentProcessingToolkit
+from owl.utils import run_society, DocumentProcessingToolkit # Added DocumentProcessingToolkit
 from camel.societies import RolePlaying
 from camel.logger import set_log_level
 
@@ -58,33 +55,33 @@ def construct_society(question: str) -> RolePlaying:
     models = {
         "user": ModelFactory.create(
             model_platform=ModelPlatformType.OPENAI_COMPATIBLE_MODEL,
-            model_type="mistral-large-latest",  # Changed from pixtral
+            model_type="mistral-large-latest", # Changed from pixtral
             api_key=os.getenv("MISTRAL_API_KEY"),
-            # url="https://api.mistral.ai/v1",
-            url="http://localhost:4000",  # LiteLLM
+            #url="https://api.mistral.ai/v1",
+            url="http://localhost:4000", # LiteLLM
             model_config_dict={"temperature": 0.4, "max_tokens": 128000},
         ),
         "assistant": ModelFactory.create(
             model_platform=ModelPlatformType.OPENAI_COMPATIBLE_MODEL,
-            model_type="mistral-large-latest",  # Changed from pixtral
+            model_type="mistral-large-latest", # Changed from pixtral
             api_key=os.getenv("MISTRAL_API_KEY"),
-            # url="https://api.mistral.ai/v1",
+            #url="https://api.mistral.ai/v1",
             url="http://localhost:4000",
             model_config_dict={"temperature": 0.4, "max_tokens": 128000},
         ),
         "browsing": ModelFactory.create(
             model_platform=ModelPlatformType.OPENAI_COMPATIBLE_MODEL,
-            model_type="mistral-large-latest",  # Changed from pixtral
+            model_type="mistral-large-latest", # Changed from pixtral
             api_key=os.getenv("MISTRAL_API_KEY"),
-            # url="https://api.mistral.ai/v1",
+            #url="https://api.mistral.ai/v1",
             url="http://localhost:4000",
             model_config_dict={"temperature": 0.4, "max_tokens": 128000},
         ),
         "planning": ModelFactory.create(
             model_platform=ModelPlatformType.OPENAI_COMPATIBLE_MODEL,
-            model_type="mistral-large-latest",  # Changed from pixtral
+            model_type="mistral-large-latest", # Changed from pixtral
             api_key=os.getenv("MISTRAL_API_KEY"),
-            # url="https://api.mistral.ai/v1",
+            #url="https://api.mistral.ai/v1",
             url="http://localhost:4000",
             model_config_dict={"temperature": 0.4, "max_tokens": 128000},
         ),
@@ -92,14 +89,14 @@ def construct_society(question: str) -> RolePlaying:
             model_platform=ModelPlatformType.OPENAI_COMPATIBLE_MODEL,
             model_type="pixtral-large-latest",
             api_key=os.getenv("MISTRAL_API_KEY"),
-            # url="https://api.mistral.ai/v1",
+            #url="https://api.mistral.ai/v1",
             url="http://localhost:4000",
             model_config_dict={"temperature": 0.4, "max_tokens": 128000},
         ),
         # Added video model definition
         "video": ModelFactory.create(
             model_platform=ModelPlatformType.OPENAI_COMPATIBLE_MODEL,
-            model_type="pixtral-large-latest",  # Assuming same model type for video
+            model_type="pixtral-large-latest", # Assuming same model type for video
             api_key=os.getenv("MISTRAL_API_KEY"),
             url="http://localhost:4000",
             model_config_dict={"temperature": 0.4, "max_tokens": 128000},
@@ -107,7 +104,7 @@ def construct_society(question: str) -> RolePlaying:
         # Added document model definition
         "document": ModelFactory.create(
             model_platform=ModelPlatformType.OPENAI_COMPATIBLE_MODEL,
-            model_type="mistral-large-latest",  # Changed from pixtral
+            model_type="mistral-large-latest", # Changed from pixtral
             api_key=os.getenv("MISTRAL_API_KEY"),
             url="http://localhost:4000",
             model_config_dict={"temperature": 0.4, "max_tokens": 128000},
@@ -128,7 +125,7 @@ def construct_society(question: str) -> RolePlaying:
             web_agent_model=models["browsing"],
             planning_agent_model=models["planning"],
         ).get_tools(),
-        *VideoAnalysisToolkit(model=models["video"]).get_tools(),  # Added
+        *VideoAnalysisToolkit(model=models["video"]).get_tools(), # Added
         # *AudioAnalysisToolkit(reasoning_model=models["assistant"]).get_tools(), # Added commented out line (Now fully commented)
         *CodeExecutionToolkit(sandbox="subprocess", verbose=True).get_tools(),
         *ImageAnalysisToolkit(model=models["image"]).get_tools(),
@@ -136,7 +133,7 @@ def construct_society(question: str) -> RolePlaying:
         SearchToolkit().search_google,  # Comment this out if you don't have google search
         SearchToolkit().search_wiki,
         *ExcelToolkit().get_tools(),
-        *DocumentProcessingToolkit(model=models["document"]).get_tools(),  # Added
+        *DocumentProcessingToolkit(model=models["document"]).get_tools(), # Added
         *FileWriteToolkit(output_dir="./").get_tools(),
     ]
 
