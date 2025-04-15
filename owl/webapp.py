@@ -260,7 +260,7 @@ MODULE_DESCRIPTIONS = {
 
 # Default environment variable template
 DEFAULT_ENV_TEMPLATE = """#===========================================
-# MODEL & API 
+# MODEL & API
 # (See https://docs.camel-ai.org/key_modules/models.html#)
 #===========================================
 
@@ -351,7 +351,7 @@ def run_owl(question: str, example_module: str) -> Tuple[str, str, str]:
             )
 
         # Dynamically import target module
-        module_path = f"examples.{example_module}"
+        module_path = f"owl.examples.{example_module}"  # Updated module path
         try:
             logging.info(f"Importing module: {module_path}")
             module = importlib.import_module(module_path)
@@ -871,7 +871,7 @@ def create_ui():
                 Advanced multi-agent collaboration system developed based on the CAMEL framework, designed to solve complex problems through agent collaboration.
 
                 Models and tools can be customized by modifying local scripts.
-                
+
                 This web app is currently in beta development. It is provided for demonstration and testing purposes only and is not yet recommended for production use.
                 """
         )
@@ -886,7 +886,7 @@ def create_ui():
                 border-radius: 10px;
                 box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             }
-            
+
 
             /* Improved tab style */
             .tabs .tab-nav {
@@ -894,19 +894,19 @@ def create_ui():
                 border-radius: 8px 8px 0 0;
                 padding: 5px;
             }
-            
+
             .tabs .tab-nav button {
                 border-radius: 5px;
                 margin: 0 3px;
                 padding: 8px 15px;
                 font-weight: 500;
             }
-            
+
             .tabs .tab-nav button.selected {
                 background-color: #2c7be5;
                 color: white;
             }
-            
+
             /* Status indicator style */
             .status-indicator {
                 display: inline-block;
@@ -915,20 +915,20 @@ def create_ui():
                 border-radius: 50%;
                 margin-right: 5px;
             }
-            
+
             .status-running {
                 background-color: #ffc107;
                 animation: pulse 1.5s infinite;
             }
-            
+
             .status-success {
                 background-color: #28a745;
             }
-            
+
             .status-error {
                 background-color: #dc3545;
             }
-            
+
             /* Log display area style */
             .log-display textarea {
                 height: 400px !important;
@@ -939,7 +939,7 @@ def create_ui():
                 white-space: pre-wrap;
                 line-height: 1.4;
             }
-            
+
             .log-display {
                 border-radius: 10px;
                 padding: 15px;
@@ -947,7 +947,7 @@ def create_ui():
                 min-height: 50vh;
                 max-height: 75vh;
             }
-            
+
             /* Environment variable management style */
             .env-manager-container {
                 border-radius: 10px;
@@ -955,7 +955,7 @@ def create_ui():
                 background-color: #f9f9f9;
                 margin-bottom: 20px;
             }
-            
+
             .env-controls, .api-help-container {
                 border-radius: 8px;
                 padding: 15px;
@@ -963,7 +963,7 @@ def create_ui():
                 box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
                 height: 100%;
             }
-            
+
             .env-add-group, .env-delete-group {
                 margin-top: 20px;
                 padding: 15px;
@@ -971,31 +971,31 @@ def create_ui():
                 background-color: #f5f8ff;
                 border: 1px solid #e0e8ff;
             }
-            
+
             .env-delete-group {
                 background-color: #fff5f5;
                 border: 1px solid #ffe0e0;
             }
-            
+
             .env-buttons {
                 justify-content: flex-start;
                 gap: 10px;
                 margin-top: 10px;
             }
-            
+
             .env-button {
                 min-width: 100px;
             }
-            
+
             .delete-button {
                 background-color: #dc3545;
                 color: white;
             }
-            
+
             .env-table {
                 margin-bottom: 15px;
             }
-            
+
             /* Improved environment variable table style */
             .env-table table {
                 border-collapse: separate;
@@ -1005,7 +1005,7 @@ def create_ui():
                 overflow: hidden;
                 box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             }
-            
+
             .env-table th {
                 background-color: #f0f7ff;
                 padding: 12px 15px;
@@ -1014,26 +1014,26 @@ def create_ui():
                 color: #2c7be5;
                 border-bottom: 2px solid #e0e8ff;
             }
-            
+
             .env-table td {
                 padding: 10px 15px;
                 border-bottom: 1px solid #f0f0f0;
             }
-            
+
             .env-table tr:hover td {
                 background-color: #f9fbff;
             }
-            
+
             .env-table tr:last-child td {
                 border-bottom: none;
             }
-            
+
             /* Status icon style */
             .status-icon-cell {
                 text-align: center;
                 font-size: 1.2em;
             }
-            
+
             /* Link style */
             .guide-link {
                 color: #2c7be5;
@@ -1041,11 +1041,11 @@ def create_ui():
                 cursor: pointer;
                 font-weight: 500;
             }
-            
+
             .guide-link:hover {
                 text-decoration: underline;
             }
-            
+
             .env-status {
                 margin-top: 15px;
                 font-weight: 500;
@@ -1053,25 +1053,25 @@ def create_ui():
                 border-radius: 6px;
                 transition: all 0.3s ease;
             }
-            
+
             .env-status-success {
                 background-color: #d4edda;
                 color: #155724;
                 border: 1px solid #c3e6cb;
             }
-            
+
             .env-status-error {
                 background-color: #f8d7da;
                 color: #721c24;
                 border: 1px solid #f5c6cb;
             }
-            
+
             .api-help-accordion {
                 margin-bottom: 8px;
                 border-radius: 6px;
                 overflow: hidden;
             }
-            
+
 
             @keyframes pulse {
                 0% { opacity: 1; }
@@ -1162,7 +1162,7 @@ def create_ui():
                     with gr.Group(elem_classes="env-manager-container"):
                         gr.Markdown("""
                             ## Environment Variable Management
-                            
+
                             Set model API keys and other service credentials here. This information will be saved in a local `.env` file, ensuring your API keys are securely stored and not uploaded to the network. Correctly setting API keys is crucial for the functionality of the OWL system. Environment variables can be flexibly configured according to tool requirements.
                             """)
 
