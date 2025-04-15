@@ -13,9 +13,10 @@
 # ========= Copyright 2023-2024 @ CAMEL-AI.org. All Rights Reserved. =========
 import sys
 import os
+
 # Add project root to sys.path immediately, before any other imports
 # This aims to ensure the path is set regardless of execution context
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if project_root not in sys.path:
     # Use insert(0) to give it highest priority
     sys.path.insert(0, project_root)
@@ -25,8 +26,11 @@ if project_root not in sys.path:
 
 # Import from the correct module path
 from utils import run_society
+
 # Imports moved down slightly due to sys.path logic above
-from utils import run_society # Keep this import after path setup if utils is also in the project
+from utils import (
+    run_society,
+)  # Keep this import after path setup if utils is also in the project
 import gradio as gr
 import time
 import json
@@ -391,13 +395,15 @@ def run_owl(question: str, example_module: str) -> Tuple[str, str, str]:
 
         # Check if module was successfully imported before proceeding
         if module is None:
-             # This case should ideally be caught by the except blocks, but adding safety check
-             logging.error(f"Module object is None after import attempt for {module_path}, cannot proceed.")
-             return (
-                 f"Failed to load module: {module_path}",
-                 "0",
-                 f"❌ Error: Module {example_module} could not be loaded (module object is None)",
-             )
+            # This case should ideally be caught by the except blocks, but adding safety check
+            logging.error(
+                f"Module object is None after import attempt for {module_path}, cannot proceed."
+            )
+            return (
+                f"Failed to load module: {module_path}",
+                "0",
+                f"❌ Error: Module {example_module} could not be loaded (module object is None)",
+            )
 
         if not hasattr(module, "construct_society"):
             logging.error(
@@ -903,7 +909,8 @@ def create_ui():
         )
 
         # Add custom CSS
-        gr.HTML("""
+        gr.HTML(
+            """
             <style>
             /* Chat container style */
             .chat-container .chatbot {
@@ -1105,7 +1112,8 @@ def create_ui():
                 100% { opacity: 1; }
             }
             </style>
-            """)
+            """
+        )
 
         with gr.Row():
             with gr.Column(scale=0.5):
@@ -1157,14 +1165,16 @@ def create_ui():
 
                 gr.Examples(examples=examples, inputs=question_input)
 
-                gr.HTML("""
+                gr.HTML(
+                    """
                         <div class="footer" id="about">
                             <h3>About OWL Multi-Agent Collaboration System</h3>
                             <p>OWL is an advanced multi-agent collaboration system developed based on the CAMEL framework, designed to solve complex problems through agent collaboration.</p>
                             <p>© 2025 CAMEL-AI.org. Based on Apache License 2.0 open source license</p>
                             <p><a href="https://github.com/camel-ai/owl" target="_blank">GitHub</a></p>
                         </div>
-                    """)
+                    """
+                )
 
             with gr.Tabs():  # Set conversation record as the default selected tab
                 with gr.TabItem("Conversation Record"):
@@ -1186,11 +1196,13 @@ def create_ui():
 
                 with gr.TabItem("Environment Variable Management", id="env-settings"):
                     with gr.Group(elem_classes="env-manager-container"):
-                        gr.Markdown("""
+                        gr.Markdown(
+                            """
                             ## Environment Variable Management
 
                             Set model API keys and other service credentials here. This information will be saved in a local `.env` file, ensuring your API keys are securely stored and not uploaded to the network. Correctly setting API keys is crucial for the functionality of the OWL system. Environment variables can be flexibly configured according to tool requirements.
-                            """)
+                            """
+                        )
 
                         # Main content divided into two-column layout
                         with gr.Row():
@@ -1198,11 +1210,13 @@ def create_ui():
                             with gr.Column(scale=3):
                                 with gr.Group(elem_classes="env-controls"):
                                     # Environment variable table - set to interactive for direct editing
-                                    gr.Markdown("""
+                                    gr.Markdown(
+                                        """
                                     <div style="background-color: #e7f3fe; border-left: 6px solid #2196F3; padding: 10px; margin: 15px 0; border-radius: 4px;">
                                       <strong>Tip:</strong> Please make sure to run cp .env_template .env to create a local .env file, and flexibly configure the required environment variables according to the running module
                                     </div>
-                                    """)
+                                    """
+                                    )
 
                                     # Enhanced environment variable table, supporting adding and deleting rows
                                     env_table = gr.Dataframe(
@@ -1350,4 +1364,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
