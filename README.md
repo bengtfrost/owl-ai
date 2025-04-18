@@ -29,6 +29,7 @@
 [Installation](#️-installation) |
 [Examples](https://github.com/camel-ai/owl/tree/main/owl) |
 [Paper](https://arxiv.org/abs/2303.17760) |
+[Technical Report](https://hypnotic-mind-6bd.notion.site/OWL-Optimized-Workforce-Learning-for-General-Multi-Agent-Assistance-in-Real-World-Task-Automation-1d4004aeb21380158749c7f84b20643f) |
 [Citation](https://github.com/camel-ai/owl#citation) |
 [Contributing](https://github.com/camel-ai/owl/graphs/contributors) |
 [CAMEL-AI](https://www.camel-ai.org/)
@@ -37,7 +38,7 @@
 
 <div align="center" style="background-color: #f0f7ff; padding: 10px; border-radius: 5px; margin: 15px 0;">
   <h3 style="color: #1e88e5; margin: 0;">
-    🏆 OWL achieves <span style="color: #d81b60; font-weight: bold; font-size: 1.2em;">58.18</span> average score on GAIA benchmark and ranks <span style="color: #d81b60; font-weight: bold; font-size: 1.2em;">🏅️ #1</span> among open-source frameworks! 🏆
+    🏆 OWL achieves <span style="color: #d81b60; font-weight: bold; font-size: 1.2em;">69.09</span> average score on GAIA benchmark and ranks <span style="color: #d81b60; font-weight: bold; font-size: 1.2em;">🏅️ #1</span> among open-source frameworks! 🏆
   </h3>
 </div>
 
@@ -110,6 +111,7 @@ Our vision is to revolutionize how AI agents collaborate to solve real-world tas
   </p>
 </div>
 
+- **[2025.04.18]**: We uploaded OWL's new GAIA benchmark score of **69.09%**, ranking #1 among open-source frameworks. Check the technical report [here](https://hypnotic-mind-6bd.notion.site/OWL-Optimized-Workforce-Learning-for-General-Multi-Agent-Assistance-in-Real-World-Task-Automation-1d4004aeb21380158749c7f84b20643f).
 - **[2025.03.27]**: Integrate SearxNGToolkit performing web searches using SearxNG search engine.
 - **[2025.03.26]**: Enhanced Browser Toolkit with multi-browser support for "chrome", "msedge", and "chromium" channels.
 - **[2025.03.25]**: Supported Gemini 2.5 Pro, added example run code
@@ -596,11 +598,10 @@ If you find this repo useful, please cite:
 
 ```
 @misc{owl2025,
-  title        = {OWL: Optimized Workforce Learning for General Multi-Agent Assistance in Real-World Task Automation},
-  author       = {{CAMEL-AI.org}},
-  howpublished = {\url{https://github.com/camel-ai/owl}},
-  note         = {Accessed: 2025-03-07},
-  year         = {2025}
+  title={OWL: Optimized Workforce Learning for General Multi-Agent Assistance in Real-World Task Automation},
+  author={Mengkang Hu, Yuhang Zhou, Wendong Fan, Yuzhou Nie, Bowei Xia, Tao Sun, Ziyu Ye, Zhaoxuan Jin, Yingru Li, Zeyu Zhang, Yifeng Wang, Qianshuo Ye, Ping Luo, Guohao Li},
+  url={https://github.com/camel-ai/owl},
+  year={2025}
 }
 ```
 
